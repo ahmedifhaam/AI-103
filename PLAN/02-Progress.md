@@ -5,30 +5,50 @@
 - **Start:** 2026-09-14
 - **Exam:** 2026-10-05
 - **Core deadline:** 2026-09-30
-- **Current status:** 🟡 Starting
+- **Current status:** 🟢 Day 1 passed
+- **Current completed gates:** 1
 - **Target readiness:** ≥85%
 
 ```text
 Overall Readiness
-░░░░░░░░░░ 0%
+██░░░░░░░░ 10%
 
-Plan & Manage             ░░░░░░░░░░ 0%
-Generative AI             ░░░░░░░░░░ 0%
-Agents                    ░░░░░░░░░░ 0%
+Plan & Manage             ██░░░░░░░░ 10%
+Generative AI             ██░░░░░░░░ 10%
+Agents                    ██░░░░░░░░ 10%
 Computer Vision           ░░░░░░░░░░ 0%
 Text Analysis             ░░░░░░░░░░ 0%
-Information Extraction   ░░░░░░░░░░ 0%
+Information Extraction    ░░░░░░░░░░ 0%
 
 Hands-on                  ░░░░░░░░░░ 0%
-Exam Questions            ░░░░░░░░░░ 0%
-Retention                 ░░░░░░░░░░ 0%
+Exam Questions            ██░░░░░░░░ 10%
+Retention                 ██░░░░░░░░ 10%
 ```
+
+> Progress is intentionally conservative. A topic is not considered mastered just because it was discussed.
 
 ## Daily Log
 
 | Date | Topic | Quiz | Hands-on | Confidence | Weak area | Gate |
 |---|---|---:|---|---:|---|---|
-| 2026-09-14 | Setup / Foundry | — | — | — | — | ⬜ |
+| 2026-09-14 | AI mental model: Traditional AI vs GenAI vs Agents, RAG, tool calling | 5/5 | Not yet | 5/5 | Agent runtime vs model responsibility | 🟢 |
+
+## Day 1 Review
+
+**Result:** 5/5 — PASS
+
+### Strengths
+- Correctly distinguished application-controlled traditional AI from LLM-centric generative AI.
+- Correctly identified the model's reasoning/decision-making role in an agent.
+- Correctly understood tools as capabilities for retrieving information or performing actions.
+- Correctly recognized RAG.
+- Correctly identified API-based customer-order lookup as an agent/tool-calling scenario.
+
+### Refinement to retain
+
+> **The model reasons; the agent/runtime executes and manages the workflow.**
+
+An LLM is not automatically an agent simply because it can call a tool.
 
 ## Topic Gate
 
@@ -45,7 +65,7 @@ A topic is green only when all are true:
 
 | Priority | Topic | Why weak? | Remediation | Status |
 |---|---|---|---|---|
-| 🔴 | — | — | — | ⬜ |
+| 🟠 | Agent model vs runtime responsibility | Minor conceptual distinction | Revisit during Agent architecture lesson | ⬜ |
 
 ## Mock Exams
 
