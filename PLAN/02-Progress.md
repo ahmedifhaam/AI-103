@@ -5,15 +5,15 @@
 - **Start:** 2026-09-14
 - **Exam:** 2026-10-05
 - **Core deadline:** 2026-09-30
-- **Current status:** 🟢 Day 1 — Foundation passed
-- **Current completed gates:** 2
+- **Current status:** 🟢 Day 2 — Foundry architecture checkpoint passed; authentication/security next
+- **Completed checkpoints:** 2
 - **Target readiness:** ≥85%
 
 ```text
 Overall Readiness
-███░░░░░░░ 15%
+████░░░░░░ 20%
 
-Plan & Manage             ███░░░░░░░ 15%
+Plan & Manage             ████░░░░░░ 20%
 Generative AI             ███░░░░░░░ 15%
 Agents                    ███░░░░░░░ 15%
 Computer Vision           ░░░░░░░░░░ 0%
@@ -40,9 +40,9 @@ Retention                 ███░░░░░░░ 15%
 
 ### Strengths
 - Correctly distinguished application-controlled traditional AI from LLM-centric generative AI.
-- Correctly identified the model's reasoning/decision-making role in an agent.
+- Correctly understood the model's reasoning/decision-making role in an agent.
 - Correctly understood tools as capabilities for retrieving information or performing actions.
-- Correctly recognized RAG.
+- Correctly recognized RAG as a retrieval pattern.
 - Correctly identified API-based customer-order lookup as an agent/tool-calling scenario.
 
 ### Refinement to retain
@@ -51,28 +51,64 @@ Retention                 ███░░░░░░░ 15%
 
 An LLM is not automatically an agent simply because it can call a tool.
 
-## Day 1 — Service Selection / Foundry
+## Day 2 — Service Selection / Foundry Architecture
 
 **Result:** 4/4 scenario questions correct + strong architecture diagram.
 
 ### Strong points
 - Correctly recognized model catalog, deployment, endpoint, and RAG/search scenarios.
-- Correctly placed API and Search as capabilities available to an agent.
-- Correctly understood that the agent can decide whether retrieval or an API call is needed.
+- Correctly understood that the model catalog is outside the project boundary; deployments are the project-level model resource used by the application/agent.
+- Correctly separated the user's business/application API from Foundry itself.
+- Correctly understood that Azure AI Search is an external Azure resource connected to the Foundry project.
+- Correctly understood that the agent can decide whether to retrieve from Search, call an API, use another tool, or answer directly.
 
-### Diagram refinement
-
-The user's diagram had the right components and boundaries, but the **request flow was drawn in reverse**. Conceptually:
+### Architecture refinement — final mental model
 
 ```text
-User → Application → Agent → Tools/Search/API → Model/Reasoning → Application → User
+                     MODEL CATALOG
+                           │
+                      deployment
+                           │
+                           ▼
+┌───────────────────────────────────────────────────────┐
+│                  MICROSOFT FOUNDRY                    │
+│                                                       │
+│  ┌─────────────────────────────────────────────────┐  │
+│  │                  PROJECT                        │  │
+│  │                                                 │  │
+│  │   Model Deployment                              │  │
+│  │          │                                      │  │
+│  │          ▼                                      │  │
+│  │        AGENT                                    │  │
+│  │          │                                      │  │
+│  │          ├──► Search Connection ───────────────┼────► Azure AI Search
+│  │          │                                      │  │
+│  │          └──► API Tool ─────────────────────────┼────► Your API
+│  │                                                 │  │
+│  └─────────────────────────────────────────────────┘  │
+│                                                       │
+└──────────────────────────┬────────────────────────────┘
+                           │
+                           ▼
+                     APPLICATION
+                           │
+                           ▼
+                          USER
 ```
+
+### Important correction from discussion
+
+Do **not** memorize “Search and API are inside Foundry.” Instead:
+
+> The **Foundry project contains the agent, deployments, and connections/tool configuration**. The actual Azure AI Search resource and your business API can remain external resources.
 
 Also retain:
 
-> A model deployment belongs to the Foundry project context; the application consumes the deployed model/agent through the appropriate project/agent endpoint.
+> **RAG is a retrieval pattern; an agent is an orchestration/decision-making component.** An agent may use RAG, but RAG does not imply an agent.
 
-Current Microsoft documentation describes Foundry projects, project endpoints, project connections, model deployments, and Search connections in this architecture. citeturn0search1turn0search2turn0search9
+And:
+
+> **The model reasons; the runtime executes the selected tool/workflow.**
 
 ## Topic Gate
 
@@ -92,6 +128,18 @@ A topic is green only when all are true:
 | 🟠 | Capability vs input type | Initially answered with the input type rather than the capability | Repeat service-selection scenarios | ⬜ |
 | 🟠 | RAG vs GenAI | Initially treated RAG as primarily GenAI | Revisit retrieval/search architecture | ⬜ |
 | 🟠 | Agent model vs runtime responsibility | Minor conceptual distinction | Revisit during Agent architecture lesson | ⬜ |
+
+## Next Learning Target
+
+**Foundry authentication, identity, connections, and security**
+
+Focus on:
+- Microsoft Entra ID vs API keys
+- Managed identity / keyless authentication
+- Project connections and credentials
+- RBAC at the right Azure resource scope
+- Separating application identity from model/tool identity
+- Exam scenarios involving secure access to Foundry resources
 
 ## Mock Exams
 
