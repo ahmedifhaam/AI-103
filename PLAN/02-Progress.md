@@ -5,8 +5,8 @@
 - **Start:** 2026-09-14
 - **Exam:** 2026-10-05
 - **Core deadline:** 2026-09-30
-- **Current status:** 🟡 RAG retrieval/search + grounding conceptual checks passed; RAG evaluation next. Foundry authentication/security checkpoint remains open.
-- **Completed checkpoints:** 4
+- **Current status:** 🟡 RAG retrieval + evaluation conceptual checks passed; Azure AI Foundry RAG evaluation workflows next. Foundry authentication/security checkpoint remains open.
+- **Completed checkpoints:** 5
 - **Target readiness:** ≥85%
 
 ```text
@@ -42,7 +42,8 @@ STUDY-SESSIONS/
     ├── README.md
     ├── 01-Agent-Tools-and-RAG.md
     ├── 02-Search-Strategy-and-Grounding.md
-    └── 03-Foundry-Authentication-Security.md
+    ├── 03-Foundry-Authentication-Security.md
+    └── 04-RAG-Evaluation.md
 ```
 
 ## Session Index
@@ -54,6 +55,7 @@ STUDY-SESSIONS/
 | 2026-09-17 | Agent tools + RAG fundamentals | Multiple scenario checks passed | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/01-Agent-Tools-and-RAG.md) |
 | 2026-09-17 | Search strategy + grounding | 6/6 meaningful scenarios | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/02-Search-Strategy-and-Grounding.md) |
 | 2026-09-17 | Foundry authentication + security | 6 questions pending | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/03-Foundry-Authentication-Security.md) |
+| 2026-09-17 | RAG evaluation | 6/6 conceptual checks | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/04-RAG-Evaluation.md) |
 
 ## Current Learning Tree
 
@@ -83,8 +85,12 @@ AI-103
     │   ├── Keyword ✓
     │   ├── Vector ✓
     │   └── Hybrid ✓
-    └── Grounding ✓ conceptual
-        └── RAG evaluation ⬜ next
+    ├── Grounding ✓ conceptual
+    └── RAG evaluation ✓ conceptual
+        ├── Retrieval relevance ✓
+        ├── Retrieval coverage ✓
+        ├── Groundedness ✓
+        └── Answer correctness ✓
 ```
 
 ## Weak Area Queue
@@ -95,12 +101,12 @@ AI-103
 | 🟠 | RAG vs GenAI | Initially treated RAG as primarily GenAI | Revisit retrieval/search architecture | 🟡 Improved |
 | 🟠 | Agent model vs runtime responsibility | Minor conceptual distinction | Revisit during agent architecture | 🟡 Improved |
 | 🟠 | Keyword vs vector vs hybrid search | Newly learned; more evaluation practice needed | Continue retrieval/evaluation scenarios | 🟡 In progress |
-| 🟠 | RAG evaluation | Not yet covered | Learn retrieval quality, groundedness, evaluation, and failure modes | ⬜ |
+| 🟠 | RAG evaluation | Newly covered; Azure-specific evaluation workflows and more failure-mode practice remain | Connect concepts to Foundry evaluation and remediation | 🟡 In progress |
 | 🟠 | Authentication/security checkpoint | Concepts taught but six checkpoint questions unanswered | Complete checkpoint + hands-on | 🟡 Open |
 
 ## Next Learning Target
 
-**RAG retrieval + evaluation** — retrieval quality, groundedness, evaluation concepts, and common RAG failure modes. The Foundry authentication/security checkpoint remains an open parallel checkpoint and should not be treated as mastered until its questions and hands-on gate are completed.
+**Azure AI Foundry RAG evaluation workflows** — connect retrieval relevance, coverage, groundedness, and correctness to Azure-specific evaluation capabilities, then cover common RAG failure modes and remediation choices. The Foundry authentication/security checkpoint remains an open parallel checkpoint and should not be treated as mastered until its questions and hands-on gate are completed.
 
 ## Topic Gate
 
