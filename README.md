@@ -8,7 +8,8 @@
 2. [21-Day Schedule](PLAN/01-Schedule.md)
 3. [Progress Dashboard](PLAN/02-Progress.md)
 4. [Exam Strategy](PLAN/03-Exam-Strategy.md)
-5. [Resource Index](RESOURCES.md)
+5. [Study Session Logger / Status Update Prompt](PLAN/04-Study-Session-Update-Prompt.md)
+6. [Resource Index](RESOURCES.md)
 
 ## Learning Philosophy
 
@@ -46,6 +47,8 @@ Text-heavy Microsoft documentation is used as a reference, not as the primary le
 **End:** record score, weak areas, and completion status.
 
 **Next session:** weak areas are reviewed before new material.
+
+For the exact workflow used to turn a study conversation into a structured session record and progress update, use the [Study Session Logger / Status Update Prompt](PLAN/04-Study-Session-Update-Prompt.md).
 
 ## Repository Layout
 
