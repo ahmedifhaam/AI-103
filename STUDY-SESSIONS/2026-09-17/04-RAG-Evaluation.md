@@ -1,10 +1,10 @@
 # 04 — RAG Evaluation
 
 ## Objective
-Understand how to evaluate a RAG pipeline by separating retrieval-side quality from generation-side quality, with particular focus on relevance, coverage, groundedness, and answer correctness.
+Understand how to evaluate a RAG pipeline by separating retrieval-side quality from generation-side quality, then connect the concepts to Azure AI Foundry evaluation workflows.
 
 ## Teaching Method
-Visual pipeline diagrams, short definitions, boundary/cause-vs-symptom explanations, practical examples, and scenario-based checkpoints with immediate correction.
+Visual pipeline diagrams, short definitions, boundary/cause-vs-symptom explanations, practical examples, Azure-specific mapping, and scenario-based checkpoints with immediate correction. New metrics were taught before being tested.
 
 ## Mental Model
 ```text
@@ -43,6 +43,84 @@ Example: retrieved evidence says refunds are available within 30 days, but the L
 ### Answer correctness
 Asks whether the final answer actually answers the user's question correctly. This is broader than grounding: an answer can fail to provide the requested information even without explicitly contradicting retrieved evidence.
 
+## Retrieval Metrics
+
+### Recall@K
+Asks whether the expected/relevant information was retrieved within the top K results.
+
+Example: if the expected chunk appears in the top 5 for 82 of 100 questions, Recall@5 = 82%.
+
+Mental model: **“Did I find what I needed within the top K?”**
+
+### Precision@K
+Asks how many of the top K retrieved results are relevant.
+
+Example: if 3 of 5 retrieved chunks are relevant, Precision@5 = 60%.
+
+Mental model: **“How much of what I retrieved was useful?”**
+
+### Recall vs Precision
+```text
+RECALL                         PRECISION
+“Did I find it?”               “Was what I found useful?”
+     │                               │
+Missing useful evidence?       Too much irrelevant noise?
+```
+
+A system can have high precision but low recall: the results it returns are mostly useful, but it misses other useful evidence.
+
+## Azure AI Foundry Evaluation Workflow
+
+```text
+                 TEST DATASET
+                      │
+                      ▼
+                RAG APPLICATION
+                      │
+             ┌────────┴────────┐
+             ▼                 ▼
+         Retrieval          Generation
+             │                 │
+             ▼                 ▼
+       Retrieved chunks    Final answer
+             │                 │
+             └────────┬────────┘
+                      ▼
+                  Evaluation
+```
+
+### Process evaluation
+Focuses on whether the retrieval/search process worked.
+
+- **Retrieval:** evaluates whether retrieved context is relevant to the query.
+- **Document Retrieval:** compares retrieved documents with ground-truth relevance information and can report search-quality metrics such as Fidelity, NDCG, XDCG, and Max Relevance.
+
+Mental model: **Document Retrieval = retrieval + ground truth.**
+
+### System evaluation
+Focuses on the final generated response.
+
+- **Groundedness:** whether the response is supported by the provided context.
+- **Relevance:** whether the response addresses the user's question.
+- **Response Completeness:** whether expected important information is missing from the response.
+
+## Test Dataset Concepts
+
+A RAG evaluation dataset can contain different forms of expected information:
+
+```text
+                 TEST DATASET
+                      │
+          ┌───────────┴───────────┐
+          ▼                       ▼
+   Retrieval ground truth     Answer ground truth
+          │                       │
+   Expected relevant docs/   Expected/reference
+   chunks                    answer information
+```
+
+Retrieval ground truth is useful for evaluating search/retrieval performance. Answer ground truth is useful for evaluating final answer quality/correctness.
+
 ## Cause vs Evaluation Dimension
 
 A key clarification from the session:
@@ -68,33 +146,51 @@ When diagnosing a question, identify the observable failure first, then investig
 
 1. Query asks for the company's refund policy; the correct document exists in the index, but unrelated shipping/delivery documents are consistently returned.
    - **Answer:** Retrieval quality.
-   - **Reasoning:** The system is returning the wrong evidence.
    - **Result:** Correct.
 
 2. A RAG system retrieves the correct refund-policy document, but poor chunking separates the actual refund rules across multiple chunks and search often retrieves only one incomplete chunk.
    - **Answer:** Chunking strategy.
-   - **Reasoning:** The scenario explicitly identifies poor division of source information as the problem.
    - **Result:** Correct.
 
 3. Correct refund-policy chunk says refunds are available within 30 days, but the LLM answers 60 days.
    - **Answer:** Grounding.
-   - **Reasoning:** Correct evidence was retrieved, but the generated answer contradicts it.
    - **Result:** Correct.
 
 4. Query asks “How do I reset my password?” and retrieval returns four password-related chunks plus one username-change chunk.
    - **Answer:** Retrieval relevance.
-   - **Reasoning:** Relevance asks whether retrieved information is useful for the query; semantically related password-recovery/reset material can remain relevant even when wording differs.
    - **Result:** Correct.
 
-5. Query asks for refund eligibility, number of days, and carry-over rules; the correct annual/refund document is retrieved but only contains one part of the requested information.
+5. Query asks for refund eligibility, number of days, and carry-over rules; the correct document is retrieved but only contains one part of the requested information.
    - **Answer:** Retrieval coverage.
-   - **Reasoning:** The evidence is relevant but does not cover enough of the information required to answer the query.
    - **Result:** Correct.
 
 6. Correct document says employees receive 20 annual leave days, but the model answers 25 days.
    - **Answer:** Groundedness.
-   - **Reasoning:** The retrieved evidence is correct, but the generated answer contradicts it. The answer is also factually incorrect, but groundedness is the more specific RAG diagnosis.
    - **Result:** Correct.
+
+7. Test set has 100 questions with expected evidence known; top 5 retrieval results are returned for each question. The set is primarily used to evaluate retrieval performance.
+   - **Answer:** Retrieval performance.
+   - **Result:** Correct.
+
+8. RAG retrieves correct chunks 95% of the time, but generated answers are incomplete or unsupported.
+   - **Answer:** Generation quality / groundedness.
+   - **Result:** Correct.
+
+9. Expected chunk appears in the top 5 results for 82 of 100 questions.
+   - **Answer:** Recall@5 = 82%.
+   - **Result:** Correct.
+
+10. Five retrieved chunks contain three relevant chunks.
+   - **Answer:** Precision@5 = 60%.
+   - **Result:** Correct. This metric was taught immediately before the checkpoint.
+
+11. Dataset contains questions, expected relevant documents, and actual retrieved documents; the goal is to evaluate how well the search system retrieved expected documents.
+   - **Answer:** Azure AI Foundry Document Retrieval evaluator.
+   - **Result:** Correct.
+
+12. Query asks about parental leave, but retrieval returns parking, travel reimbursement, and expense documents. The final answer is also wrong.
+   - **Answer:** Retrieval quality.
+   - **Result:** Correct; retrieval is the first failed stage.
 
 ## Exam Rules
 > Wrong/unrelated evidence → **Retrieval relevance/quality**.
@@ -107,12 +203,20 @@ When diagnosing a question, identify the observable failure first, then investig
 
 > Related information is not automatically irrelevant. Relevance is judged by usefulness for answering the specific query, not exact word matching.
 
+> **Recall@K** asks whether needed/relevant evidence appeared within the top K.
+
+> **Precision@K** asks how much of the top K was relevant.
+
+> **Document Retrieval** is the Foundry evaluator to use when evaluating retrieved documents against ground-truth relevance information.
+
+> Trace RAG failures left-to-right: **question → retrieval → context → generation → answer**. Diagnose the first failed stage.
+
 ## Session Result
-**Conceptual checks:** 6/6 passed in this RAG evaluation branch.
+**Conceptual checks:** 12/12 recorded checks passed, including 6 original conceptual scenarios, retrieval/evaluation workflow checks, and newly taught Recall@5/Precision@5 checks.
 
 **Hands-on:** Not yet completed.
 
 **Gate:** 🟡 In progress. Conceptual evaluation understanding is established, but hands-on work and the repository's full topic-gate requirements remain incomplete.
 
 ## Next Learning Target
-Connect RAG evaluation concepts to Azure AI Foundry evaluation workflows and then cover common RAG failure modes and remediation choices.
+Continue Azure-specific RAG evaluation with ranking metrics such as NDCG and then cover common RAG failure modes and remediation choices. Do not test a new metric before teaching it.
