@@ -5,8 +5,8 @@
 - **Start:** 2026-09-14
 - **Exam:** 2026-10-05
 - **Core deadline:** 2026-09-30
-- **Current status:** 🟢 RAG + Agent tools fundamentals learned; Keyword vs Vector vs Hybrid Search next
-- **Completed checkpoints:** 3
+- **Current status:** 🟢 RAG retrieval fundamentals + grounding learned; RAG evaluation next
+- **Completed checkpoints:** 4
 - **Target readiness:** ≥85%
 
 ```text
@@ -14,14 +14,14 @@ Overall Readiness
 █████░░░░░ 25%
 
 Plan & Manage             ████░░░░░░ 20%
-Generative AI             █████░░░░░ 25%
+Generative AI             ██████░░░░ 30%
 Agents                    █████░░░░░ 25%
 Computer Vision           ░░░░░░░░░░ 0%
 Text Analysis             ██░░░░░░░ 10%
 Information Extraction    ██░░░░░░░ 10%
 
 Hands-on                  ░░░░░░░░░░ 0%
-Exam Questions            ████░░░░░░ 20%
+Exam Questions            █████░░░░░ 25%
 Retention                 ████░░░░░░ 20%
 ```
 
@@ -34,6 +34,7 @@ Retention                 ████░░░░░░ 20%
 | 2026-09-14 | AI mental model: Traditional AI vs GenAI vs Agents, RAG, tool calling | 5/5 | Not yet | 5/5 | Agent runtime vs model responsibility | 🟢 |
 | 2026-09-14 | Azure AI capability vs input type; RAG architecture; Foundry model/project/deployment/service map | 4/4 + architecture | Not yet | 4.5/5 | Capability vs input type; RAG retrieval component | 🟢 |
 | 2026-09-17 | Agent fundamentals, tools, function calling, OpenAPI/API tools, RAG, chunking, embeddings, vector search | Multiple scenario checks: passed | Not yet | 5/5 | Search strategy comparison still in progress | 🟡 |
+| 2026-09-17 | Keyword vs vector vs hybrid search; retrieval vs chunking; grounding | 5/5 | Not yet | 5/5 | RAG evaluation not yet covered | 🟡 |
 
 ## Day 1 — Foundation
 
@@ -143,9 +144,81 @@ And:
 
 > **Vector search is semantic matching using embeddings; keyword search is useful for exact terms such as identifiers and error codes.**
 
-### Current topic
+## 2026-09-17 — Search Strategy + Grounding
 
-**Keyword vs Vector vs Hybrid Search** — next lesson/checkpoint.
+### How this session was taught
+- Visual-first ASCII diagrams showing the RAG pipeline and the three retrieval strategies.
+- Short definitions followed by concrete scenarios.
+- Exam-trap comparisons: exact terms vs semantic meaning vs mixed requirements.
+- Immediate feedback after each answer, with a correction when needed.
+- A final mental model was used to distinguish retrieval, chunking, and grounding failures.
+
+### Concepts learned
+- **Keyword search** is strong for exact words, IDs, codes, product numbers, and other identifiers.
+- **Vector search** is strong when the user's wording differs from the wording in the knowledge base but the meaning is similar.
+- **Hybrid search** combines keyword and vector retrieval signals and is useful when a query contains both natural-language intent and exact identifiers.
+- **Retrieval** determines which chunks/documents are returned as candidate evidence.
+- **Chunking** affects retrieval quality by determining how information is divided into retrievable units; poorly split chunks can lose context.
+- **Grounding** means keeping the generated answer supported by trusted retrieved context rather than unsupported model knowledge.
+
+### Scenario questions and responses
+
+1. **Question:** A technical knowledge base contains natural-language documentation plus product names, model numbers, and error codes. Users search using natural language, but exact identifiers must also be found reliably. Which approach: keyword, vector, hybrid, or fine-tuning?
+   - **Answer:** Hybrid search.
+   - **Reasoning:** Natural-language meaning benefits from vector search while exact identifiers benefit from keyword search.
+   - **Result:** Correct.
+
+2. **Question:** A user asks “What is the process for resetting a forgotten password?” while the knowledge base uses terms such as “credential recovery” and “account access restoration.” Which approach is most directly useful?
+   - **Answer:** Vector search.
+   - **Reasoning:** The wording may not share the same keywords, but the semantic meaning is similar.
+   - **Result:** Correct.
+
+3. **Question:** A knowledge base contains product names, error codes, and natural-language explanations. The user asks why they are getting error `E1042` when connecting to the server. Which retrieval strategy?
+   - **Answer:** Hybrid search.
+   - **Reasoning:** `E1042` requires reliable exact-term matching while the surrounding natural-language intent benefits from semantic retrieval.
+   - **Result:** Correct.
+
+4. **Question:** A RAG system retrieves 10 chunks but only 3 are relevant. Which part should be investigated first?
+   - **Answer:** Retrieval.
+   - **Reasoning:** The immediate issue is which chunks are being returned. Chunking can influence retrieval quality, but the stated failure is the retrieval result.
+   - **Result:** Correct.
+
+5. **Question:** The system retrieves the correct document, but the LLM gives an answer unsupported by the retrieved content. What failed?
+   - **Answer:** Grounding.
+   - **Reasoning:** The evidence was retrieved successfully; the generated answer did not stay supported by that evidence.
+   - **Result:** Correct.
+
+### Exam rules to retain
+
+```text
+Keyword  → exact terms / IDs / codes
+Vector   → semantic meaning / different wording
+Hybrid   → exact identifiers + semantic meaning
+
+Retrieval → find the evidence
+Chunking  → divide the evidence into useful retrievable units
+Grounding → keep the generated answer supported by the evidence
+```
+
+### Important clarification
+
+Chunking is important to retrieval quality, but these are different failure modes:
+
+> **Wrong/unrelated chunks returned → Retrieval issue.**
+
+> **Relevant information split into poor fragments → Chunking issue.**
+
+> **Correct evidence retrieved but unsupported answer generated → Grounding issue.**
+
+### Session result
+
+**Quiz:** 5/5 — PASS
+
+**Confidence:** 5/5
+
+**Hands-on:** Not yet completed.
+
+**Topic gate:** 🟡 In progress. Conceptual checks passed, but hands-on work and the repository's full gate requirements remain incomplete.
 
 ## Topic Gate
 
@@ -165,22 +238,21 @@ A topic is green only when all are true:
 | 🟠 | Capability vs input type | Initially answered with the input type rather than the capability | Repeat service-selection scenarios | ⬜ |
 | 🟠 | RAG vs GenAI | Initially treated RAG as primarily GenAI | Revisit retrieval/search architecture | 🟡 Improved |
 | 🟠 | Agent model vs runtime responsibility | Minor conceptual distinction | Revisit during Agent architecture lesson | 🟡 Improved |
-| 🟠 | Keyword vs vector vs hybrid search | Not yet completed | Compare retrieval signals and complete scenario gate | ⬜ |
+| 🟠 | Keyword vs vector vs hybrid search | Newly learned; more evaluation practice needed | Complete RAG retrieval/evaluation scenarios | 🟡 In progress |
+| 🟠 | RAG evaluation | Not yet covered | Learn retrieval quality, groundedness, and evaluation concepts | ⬜ |
 
 ## Next Learning Target
 
-**Keyword vs Vector vs Hybrid Search**
+**RAG Retrieval + Evaluation**
 
 Focus on:
-- Keyword/full-text search
-- Vector search and semantic similarity
-- Embeddings and vector representations
-- Hybrid search
-- When exact identifiers/codes favor keyword retrieval
-- When natural-language meaning favors vector retrieval
-- Combining retrieval signals for RAG
+- Retrieval quality
+- Groundedness / grounding
+- Evaluating retrieved context and generated answers
+- Common RAG failure modes
+- Improving retrieval and grounding
 
-After this, continue through the scheduled RAG retrieval/evaluation material, then agents and agent architecture while preserving the hands-on and topic-gate requirements.
+After this, continue through the scheduled RAG evaluation material, then agents and agent architecture while preserving the hands-on and topic-gate requirements.
 
 ## Mock Exams
 
