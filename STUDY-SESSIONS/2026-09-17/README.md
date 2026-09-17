@@ -2,7 +2,7 @@
 
 ## Day Summary
 
-Expanded the agent and RAG mental model, learned retrieval strategies and grounding, and continued the session with scenario-based checks. The latest part of the conversation specifically clarified grounding because it had not previously been taught explicitly.
+Expanded the agent and RAG mental model, learned retrieval strategies and grounding, and continued with RAG evaluation. The session now covers retrieval relevance, retrieval coverage, groundedness, and answer correctness, including the distinction between an evaluation dimension and an underlying cause such as poor chunking.
 
 ## Topic Tree
 
@@ -26,13 +26,20 @@ Expanded the agent and RAG mental model, learned retrieval strategies and ground
 │   ├── Chunking failure modes
 │   └── Grounding
 │
-└── 03-Foundry-Authentication-Security.md
-    ├── API keys
-    ├── Entra ID
-    ├── Managed identity
-    ├── RBAC
-    ├── Project connections
-    └── Agent identity
+├── 03-Foundry-Authentication-Security.md
+│   ├── API keys
+│   ├── Entra ID
+│   ├── Managed identity
+│   ├── RBAC
+│   ├── Project connections
+│   └── Agent identity
+│
+└── 04-RAG-Evaluation.md
+    ├── Retrieval relevance
+    ├── Retrieval coverage
+    ├── Groundedness
+    ├── Answer correctness
+    └── Chunking as a possible cause of coverage problems
 ```
 
 ## Root Summary
@@ -47,7 +54,9 @@ Expanded the agent and RAG mental model, learned retrieval strategies and ground
 
 **Failure separation:** wrong results → retrieval; badly split context → chunking; unsupported answer despite correct evidence → grounding.
 
-**Grounding clarification:** grounding was explicitly taught in this session after the user noticed it had not yet been covered. The key distinction is retrieval = find evidence; grounding = keep the generated answer supported by that evidence.
+**RAG evaluation:** retrieval relevance asks whether retrieved evidence is useful; retrieval coverage asks whether enough required evidence was retrieved; groundedness asks whether the generated answer is supported by retrieved evidence; answer correctness asks whether the answer actually answers the question correctly.
+
+**Cause vs evaluation:** poor chunking can contribute to poor retrieval coverage, but chunking and coverage are not synonyms. Relevance is contextual; semantically related information can still be relevant even when wording differs.
 
 **Security:** authentication identifies the caller; authorization determines permissions. Managed identity uses Entra ID; RBAC grants permissions.
 
@@ -57,12 +66,15 @@ Expanded the agent and RAG mental model, learned retrieval strategies and ground
 - Chose vector search when query wording differed from the knowledge-base wording but the meaning was similar.
 - Distinguished retrieval problems from chunking problems.
 - Correctly identified grounding failure when the right evidence was retrieved but the LLM produced an unsupported answer.
-- Corrected/clarified the final answer from an accidental option C to intended option B while preserving the correct reasoning.
+- Distinguished retrieval relevance from retrieval coverage.
+- Recognized that password reset and forgotten-password material can be semantically related and therefore potentially relevant.
+- Distinguished poor chunking as a possible cause of poor coverage from coverage as the observable retrieval outcome.
+- Correctly identified groundedness when retrieved evidence contradicted the generated answer.
 
 ## Day Status
 
-Conceptual checks were strong. Hands-on work and some checkpoint requirements remain incomplete, so the relevant gates remain open.
+Conceptual checks are strong across the completed RAG branches. Hands-on work and some checkpoint requirements remain incomplete, so the relevant gates remain open.
 
 ## Next
 
-**RAG retrieval + evaluation** — retrieval quality, groundedness, evaluation concepts, and common RAG failure modes.
+**Azure AI Foundry RAG evaluation workflows** — connect the evaluation concepts to Azure-specific evaluation capabilities, then cover common RAG failure modes and remediation choices.
