@@ -5,24 +5,24 @@
 - **Start:** 2026-09-14
 - **Exam:** 2026-10-05
 - **Core deadline:** 2026-09-30
-- **Current status:** 🟢 Day 2 — Foundry architecture checkpoint passed; authentication/security next
-- **Completed checkpoints:** 2
+- **Current status:** 🟢 RAG + Agent tools fundamentals learned; Keyword vs Vector vs Hybrid Search next
+- **Completed checkpoints:** 3
 - **Target readiness:** ≥85%
 
 ```text
 Overall Readiness
-████░░░░░░ 20%
+█████░░░░░ 25%
 
 Plan & Manage             ████░░░░░░ 20%
-Generative AI             ███░░░░░░░ 15%
-Agents                    ███░░░░░░░ 15%
+Generative AI             █████░░░░░ 25%
+Agents                    █████░░░░░ 25%
 Computer Vision           ░░░░░░░░░░ 0%
-Text Analysis             ██░░░░░░░░ 10%
-Information Extraction    ██░░░░░░░░ 10%
+Text Analysis             ██░░░░░░░ 10%
+Information Extraction    ██░░░░░░░ 10%
 
 Hands-on                  ░░░░░░░░░░ 0%
-Exam Questions            ███░░░░░░░ 15%
-Retention                 ███░░░░░░░ 15%
+Exam Questions            ████░░░░░░ 20%
+Retention                 ████░░░░░░ 20%
 ```
 
 > Progress is intentionally conservative. A topic is not considered mastered just because it was discussed.
@@ -33,6 +33,7 @@ Retention                 ███░░░░░░░ 15%
 |---|---|---:|---|---:|---|---|
 | 2026-09-14 | AI mental model: Traditional AI vs GenAI vs Agents, RAG, tool calling | 5/5 | Not yet | 5/5 | Agent runtime vs model responsibility | 🟢 |
 | 2026-09-14 | Azure AI capability vs input type; RAG architecture; Foundry model/project/deployment/service map | 4/4 + architecture | Not yet | 4.5/5 | Capability vs input type; RAG retrieval component | 🟢 |
+| 2026-09-17 | Agent fundamentals, tools, function calling, OpenAPI/API tools, RAG, chunking, embeddings, vector search | Multiple scenario checks: passed | Not yet | 5/5 | Search strategy comparison still in progress | 🟡 |
 
 ## Day 1 — Foundation
 
@@ -110,6 +111,42 @@ And:
 
 > **The model reasons; the runtime executes the selected tool/workflow.**
 
+## 2026-09-17 — Agent Tools + RAG Fundamentals
+
+### Learned
+- **Agent** is the orchestration component that coordinates a model with instructions, tools, knowledge, and conversation/workflow state.
+- An **agent uses a model deployment**; the agent is not the model itself.
+- **Tools** give an agent capabilities to retrieve live information or perform operations.
+- **Function calling** lets a model request a specific function with structured arguments; the application/runtime executes the function and returns the result.
+- **OpenAPI/API tools** are appropriate when exposing an existing REST API with documented operations to an agent.
+- **Knowledge/RAG** is primarily a retrieval/grounding pattern, while tools can interact with live external systems or perform actions.
+- **RAG pipeline:** documents → chunks → embeddings/index → retrieval → LLM → grounded answer.
+- **Chunking** breaks large documents into smaller retrievable units.
+- **Embeddings** represent text as vectors so semantic similarity can be measured.
+- **Vector search** can retrieve semantically similar content even when exact words do not match.
+- At indexing time, documents are prepared/indexed; at query time, the question is embedded, relevant content is retrieved, and the LLM generates the response.
+
+### Checkpoints passed
+- Correctly selected **Agent** for orchestrating a model, tools, search, and instructions.
+- Correctly selected **Knowledge + API/tool** when answering a user-specific HR question could require both policy and live employee data.
+- Correctly selected **OpenAPI/API tool** for an existing REST API used to check inventory and place an order.
+- Correctly selected the standard **RAG pipeline** for answering questions from a large set of technical manuals.
+- Correctly explained why vector search can retrieve semantically similar documents without exact keyword matches.
+
+### Refinements to retain
+
+> **Knowledge retrieves information; tools interact with systems or perform operations.**
+
+> **Function calling describes/request a callable operation; the runtime/application actually executes it.**
+
+> **RAG adds retrieved external knowledge to the model's context; it is not the same thing as fine-tuning.**
+
+> **Vector search is semantic matching using embeddings; keyword search is useful for exact terms such as identifiers and error codes.**
+
+### Current topic
+
+**Keyword vs Vector vs Hybrid Search** — next lesson/checkpoint.
+
 ## Topic Gate
 
 A topic is green only when all are true:
@@ -126,20 +163,24 @@ A topic is green only when all are true:
 | Priority | Topic | Why weak? | Remediation | Status |
 |---|---|---|---|---|
 | 🟠 | Capability vs input type | Initially answered with the input type rather than the capability | Repeat service-selection scenarios | ⬜ |
-| 🟠 | RAG vs GenAI | Initially treated RAG as primarily GenAI | Revisit retrieval/search architecture | ⬜ |
-| 🟠 | Agent model vs runtime responsibility | Minor conceptual distinction | Revisit during Agent architecture lesson | ⬜ |
+| 🟠 | RAG vs GenAI | Initially treated RAG as primarily GenAI | Revisit retrieval/search architecture | 🟡 Improved |
+| 🟠 | Agent model vs runtime responsibility | Minor conceptual distinction | Revisit during Agent architecture lesson | 🟡 Improved |
+| 🟠 | Keyword vs vector vs hybrid search | Not yet completed | Compare retrieval signals and complete scenario gate | ⬜ |
 
 ## Next Learning Target
 
-**Foundry authentication, identity, connections, and security**
+**Keyword vs Vector vs Hybrid Search**
 
 Focus on:
-- Microsoft Entra ID vs API keys
-- Managed identity / keyless authentication
-- Project connections and credentials
-- RBAC at the right Azure resource scope
-- Separating application identity from model/tool identity
-- Exam scenarios involving secure access to Foundry resources
+- Keyword/full-text search
+- Vector search and semantic similarity
+- Embeddings and vector representations
+- Hybrid search
+- When exact identifiers/codes favor keyword retrieval
+- When natural-language meaning favors vector retrieval
+- Combining retrieval signals for RAG
+
+After this, continue through the scheduled RAG retrieval/evaluation material, then agents and agent architecture while preserving the hands-on and topic-gate requirements.
 
 ## Mock Exams
 
