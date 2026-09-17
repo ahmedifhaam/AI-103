@@ -5,7 +5,7 @@
 - **Start:** 2026-09-14
 - **Exam:** 2026-10-05
 - **Core deadline:** 2026-09-30
-- **Current status:** 🟢 RAG retrieval fundamentals + grounding learned; RAG evaluation next
+- **Current status:** 🟡 Foundry authentication/security taught; checkpoint questions pending
 - **Completed checkpoints:** 4
 - **Target readiness:** ≥85%
 
@@ -35,6 +35,7 @@ Retention                 ████░░░░░░ 20%
 | 2026-09-14 | Azure AI capability vs input type; RAG architecture; Foundry model/project/deployment/service map | 4/4 + architecture | Not yet | 4.5/5 | Capability vs input type; RAG retrieval component | 🟢 |
 | 2026-09-17 | Agent fundamentals, tools, function calling, OpenAPI/API tools, RAG, chunking, embeddings, vector search | Multiple scenario checks: passed | Not yet | 5/5 | Search strategy comparison still in progress | 🟡 |
 | 2026-09-17 | Keyword vs vector vs hybrid search; retrieval vs chunking; grounding | 5/5 | Not yet | 5/5 | RAG evaluation not yet covered | 🟡 |
+| 2026-09-17 | Foundry authentication, Entra ID, API keys, managed identity, RBAC, project connections, agent identity | 6 checkpoint questions asked; answers pending | Not yet | Not established | Authentication/security checkpoint pending | 🟡 |
 
 ## Day 1 — Foundation
 
@@ -220,6 +221,154 @@ Chunking is important to retrieval quality, but these are different failure mode
 
 **Topic gate:** 🟡 In progress. Conceptual checks passed, but hands-on work and the repository's full gate requirements remain incomplete.
 
+## 2026-09-17 — Foundry Authentication + Security
+
+### Learning objective
+Understand the authentication and authorization model around Microsoft Foundry, including API keys, Microsoft Entra ID, managed identities, RBAC, project connections, and agent identity, and recognize the appropriate approach in common AI-103 scenarios.
+
+### How this session was taught
+- Started with a visual identity → authentication → authorization → resource flow.
+- Used ASCII architecture diagrams for API-key and Entra ID access.
+- Used a short comparison table for API key vs Entra ID.
+- Introduced managed identity through a “bad secret in configuration → better Azure-managed identity” contrast.
+- Built a concise mental model separating Entra ID, managed identity, and RBAC.
+- Applied the concepts to a Foundry agent calling Azure AI Search and an external business API.
+- Used an exam-oriented decision tree and scenario wording to identify the expected security approach.
+
+### Visual / mental models used
+
+```text
+                 WHO?
+                  │
+                  ▼
+          ┌───────────────┐
+          │   Identity    │
+          │ User / App /  │
+          │ Managed ID /  │
+          │ Agent         │
+          └───────┬───────┘
+                  │ Authentication
+                  ▼
+          ┌───────────────┐
+          │ Microsoft     │
+          │ Entra ID      │
+          └───────┬───────┘
+                  │ Token
+                  ▼
+          ┌───────────────┐
+          │ Azure Resource│
+          │ / API / Tool  │
+          └───────┬───────┘
+                  │ Authorization
+                  ▼
+                 RBAC
+```
+
+Core mental model:
+
+> **Authentication = Who are you?**
+
+> **Authorization = What are you allowed to do?**
+
+### Concepts learned
+
+- **API keys** are shared secrets that provide a simple authentication mechanism but require secure storage and rotation.
+- **Microsoft Entra ID** provides an identity-based authentication model and works with Azure RBAC.
+- **Managed identity** is an Azure-managed Entra identity associated with an Azure resource, reducing the need to store credentials in application configuration.
+- **RBAC** controls what an authenticated identity is allowed to access or perform on Azure resources.
+- Managed identity is **not an alternative to Entra ID**; it uses Entra ID.
+- A production Azure workload that should access Azure AI without storing secrets is a common **managed identity + Entra ID + RBAC** scenario.
+- **Foundry project connections** provide project-scoped connection/configuration to external Azure resources such as Azure AI Search; the external resource itself does not become physically part of the project.
+- An **agent identity** can provide an Entra identity for an agent when it needs to authenticate and authorize access to downstream resources.
+- The agent's decision to call a tool and the tool's authorization to execute are separate security concerns.
+
+### Important distinctions / exam rules
+
+```text
+Entra ID        → identity platform
+Managed Identity→ Azure-managed identity using Entra ID
+RBAC            → permissions for an identity
+
+API key         → shared secret
+Entra ID        → identity/token based access
+
+Authentication  → WHO are you?
+Authorization   → WHAT can you do?
+```
+
+Exam pattern:
+
+> **“Azure-hosted application should access an Azure AI resource without storing credentials.”**
+>
+> Think **Managed Identity + Entra ID + RBAC**.
+
+Also retain:
+
+> **The agent deciding to call a tool is different from the identity/permissions used to authorize the downstream call.**
+
+### Examples used
+
+1. **API key example:** Application → API key → Foundry.
+2. **Entra ID example:** Application → Entra ID → access token → Foundry → RBAC.
+3. **Managed identity example:** Azure App Service → managed identity → Entra token → Foundry/Azure resource.
+4. **Agent security example:** User → Agent → Azure AI Search / Order API / other tool, with separate authentication/authorization boundaries.
+
+### Exam-style checkpoint questions asked
+
+The following six questions were asked at the end of the session. **The user had not answered them yet when this session was logged**, so no correctness or confidence is inferred.
+
+1. **Question:** An Azure-hosted web application needs to call a Foundry model and should not have API keys or secrets stored in configuration. What authentication approach should be used?
+   - **User answer:** Pending.
+   - **Result:** Pending.
+
+2. **Question:** What is the difference between authentication and authorization?
+   - **User answer:** Pending.
+   - **Result:** Pending.
+
+3. **Question:** A developer is testing an application locally and wants the simplest way to authenticate to Foundry. Would an API key or Entra ID generally be the simpler choice?
+   - **User answer:** Pending.
+   - **Result:** Pending.
+
+4. **Question:** A production application runs on Azure App Service and needs to access Azure AI Search without storing credentials. What Azure capability should be chosen?
+   - **User answer:** Pending.
+   - **Result:** Pending.
+
+5. **Question:** An agent needs to access an Azure Storage account with only the permissions it requires. What two concepts should immediately come to mind?
+   - **User answer:** Pending.
+   - **Result:** Pending.
+
+6. **Question:** Complete the architecture `App Service → ??? → Microsoft Entra ID → ??? → Foundry`, and explain why managed identity is preferable to storing an API key in this scenario.
+   - **User answer:** Pending.
+   - **Result:** Pending.
+
+### Misconceptions / weak areas discovered
+
+No new misconception was established because the checkpoint questions were not answered yet.
+
+Existing weak areas remain:
+- 🟠 Capability vs input type
+- 🟠 RAG vs GenAI — improved
+- 🟠 Agent model vs runtime responsibility — improved
+- 🟠 Keyword vs vector vs hybrid search — in progress
+- 🟠 RAG evaluation — not yet covered
+
+### Concepts improved from earlier sessions
+
+- The earlier Foundry architecture distinction between **project-owned configuration/resources and external Azure resources** was extended into security: project connections configure access to external resources rather than making those resources part of the project itself.
+- The earlier agent/tool distinction was extended with a security distinction: **agent orchestration and downstream authorization are separate concerns**.
+
+### Confidence
+
+**Not established for this session.** The user has not answered the six checkpoint questions yet.
+
+### Hands-on status
+
+**Not yet completed.** No hands-on authentication/security lab was performed in this session.
+
+### Topic-gate status
+
+🟡 **In progress / open.** The concepts were taught, but the checkpoint questions, hands-on task, and full repository gate requirements remain incomplete.
+
 ## Topic Gate
 
 A topic is green only when all are true:
@@ -243,16 +392,9 @@ A topic is green only when all are true:
 
 ## Next Learning Target
 
-**RAG Retrieval + Evaluation**
+**Complete Foundry Authentication/Security checkpoint → RBAC + Foundry project roles → continue scheduled Plan & Manage material.**
 
-Focus on:
-- Retrieval quality
-- Groundedness / grounding
-- Evaluating retrieved context and generated answers
-- Common RAG failure modes
-- Improving retrieval and grounding
-
-After this, continue through the scheduled RAG evaluation material, then agents and agent architecture while preserving the hands-on and topic-gate requirements.
+Before moving on, answer the six authentication/security checkpoint questions and resolve any mistakes. Then complete the planned hands-on task so the security topic can eventually pass its gate.
 
 ## Mock Exams
 
