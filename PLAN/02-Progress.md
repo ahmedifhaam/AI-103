@@ -5,7 +5,7 @@
 - **Start:** 2026-09-14
 - **Exam:** 2026-10-05
 - **Core deadline:** 2026-09-30
-- **Current status:** 🟡 Foundry authentication/security taught; checkpoint questions pending
+- **Current status:** 🟡 RAG retrieval/search + grounding conceptual checks passed; RAG evaluation next. Foundry authentication/security checkpoint remains open.
 - **Completed checkpoints:** 4
 - **Target readiness:** ≥85%
 
@@ -29,7 +29,7 @@ Retention                 ████░░░░░░ 20%
 
 ## Study Session Tree
 
-Detailed session evidence is now stored under [`STUDY-SESSIONS/`](../STUDY-SESSIONS/README.md).
+Detailed session evidence is stored under [`STUDY-SESSIONS/`](../STUDY-SESSIONS/README.md).
 
 ```text
 STUDY-SESSIONS/
@@ -52,7 +52,7 @@ STUDY-SESSIONS/
 | 2026-09-14 | AI mental model | 5/5 | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-14/01-AI-Mental-Model.md) |
 | 2026-09-14 | Service selection + Foundry architecture | 4/4 + architecture | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-14/02-Service-Selection-Foundry.md) |
 | 2026-09-17 | Agent tools + RAG fundamentals | Multiple scenario checks passed | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/01-Agent-Tools-and-RAG.md) |
-| 2026-09-17 | Search strategy + grounding | 5/5 | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/02-Search-Strategy-and-Grounding.md) |
+| 2026-09-17 | Search strategy + grounding | 6/6 meaningful scenarios | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/02-Search-Strategy-and-Grounding.md) |
 | 2026-09-17 | Foundry authentication + security | 6 questions pending | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/03-Foundry-Authentication-Security.md) |
 
 ## Current Learning Tree
@@ -100,7 +100,7 @@ AI-103
 
 ## Next Learning Target
 
-**Complete Foundry Authentication/Security checkpoint → RBAC + project roles → RAG evaluation.**
+**RAG retrieval + evaluation** — retrieval quality, groundedness, evaluation concepts, and common RAG failure modes. The Foundry authentication/security checkpoint remains an open parallel checkpoint and should not be treated as mastered until its questions and hands-on gate are completed.
 
 ## Topic Gate
 
