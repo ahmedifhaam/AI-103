@@ -5,8 +5,8 @@
 - **Start:** 2026-09-14
 - **Exam:** 2026-10-05
 - **Core deadline:** 2026-09-30
-- **Current status:** 🟡 RAG retrieval + evaluation concepts and Azure evaluation workflow mapping are progressing well; NDCG/ranking metrics and RAG failure-mode remediation remain. Foundry authentication/security checkpoint remains open.
-- **Completed checkpoints:** 6
+- **Current status:** 🟡 RAG evaluation/remediation concepts are strong and scenario performance is consistent. Hands-on work remains incomplete, and the Foundry authentication/security checkpoint remains open.
+- **Completed checkpoints:** 7
 - **Target readiness:** ≥85%
 
 ```text
@@ -29,7 +29,7 @@ Retention                 ████░░░░░░ 20%
 
 ## Study Session Tree
 
-Detailed session evidence is stored under [`STUDY-SESSIONS/`](../STUDY-SESSIONS/README.md).
+Detailed session evidence is stored under [STUDY-SESSIONS/](../STUDY-SESSIONS/README.md).
 
 ```text
 STUDY-SESSIONS/
@@ -38,12 +38,16 @@ STUDY-SESSIONS/
 │   ├── 01-AI-Mental-Model.md
 │   └── 02-Service-Selection-Foundry.md
 │
-└── 2026-09-17/
+├── 2026-09-17/
+│   ├── README.md
+│   ├── 01-Agent-Tools-and-RAG.md
+│   ├── 02-Search-Strategy-and-Grounding.md
+│   ├── 03-Foundry-Authentication-Security.md
+│   └── 04-RAG-Evaluation.md
+│
+└── 2026-09-18/
     ├── README.md
-    ├── 01-Agent-Tools-and-RAG.md
-    ├── 02-Search-Strategy-and-Grounding.md
-    ├── 03-Foundry-Authentication-Security.md
-    └── 04-RAG-Evaluation.md
+    └── 01-RAG-Evaluation-Remediation.md
 ```
 
 ## Session Index
@@ -56,6 +60,7 @@ STUDY-SESSIONS/
 | 2026-09-17 | Search strategy + grounding | 6/6 meaningful scenarios | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/02-Search-Strategy-and-Grounding.md) |
 | 2026-09-17 | Foundry authentication + security | 6 questions pending | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/03-Foundry-Authentication-Security.md) |
 | 2026-09-17 | RAG evaluation | 12/12 recorded checks | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/04-RAG-Evaluation.md) |
+| 2026-09-18 | RAG evaluation + remediation | NDCG + 5/5 remediation checks | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-18/01-RAG-Evaluation-Remediation.md) |
 
 ## Current Learning Tree
 
@@ -91,10 +96,17 @@ AI-103
         ├── Retrieval coverage ✓
         ├── Recall@K ✓ taught
         ├── Precision@K ✓ taught
+        ├── NDCG ✓ scenario checkpoint passed
         ├── Groundedness ✓
         ├── Answer correctness ✓
         ├── Foundry process/system evaluation ✓ taught
-        └── Document Retrieval evaluator ✓ taught
+        ├── Document Retrieval evaluator ✓ taught
+        └── Failure modes + remediation 🟡
+            ├── Semantic/vector retrieval ✓
+            ├── Hybrid retrieval ✓
+            ├── Chunking remediation ✓
+            ├── Ranking/reranking ✓
+            └── Precision / Top-K / filtering ✓
 ```
 
 ## Weak Area Queue
@@ -105,12 +117,12 @@ AI-103
 | 🟠 | RAG vs GenAI | Initially treated RAG as primarily GenAI | Revisit retrieval/search architecture | 🟡 Improved |
 | 🟠 | Agent model vs runtime responsibility | Minor conceptual distinction | Revisit during agent architecture | 🟡 Improved |
 | 🟠 | Keyword vs vector vs hybrid search | Newly learned; more evaluation practice needed | Continue retrieval/evaluation scenarios | 🟡 In progress |
-| 🟠 | RAG evaluation | Azure-specific ranking metrics and failure-mode remediation remain | Continue NDCG/ranking + failure modes; then hands-on | 🟡 In progress |
+| 🟠 | RAG evaluation | Ranking and remediation now demonstrated; hands-on remains | Complete hands-on + multi-symptom scenarios | 🟡 In progress |
 | 🟠 | Authentication/security checkpoint | Concepts taught but six checkpoint questions unanswered | Complete checkpoint + hands-on | 🟡 Open |
 
 ## Next Learning Target
 
-**Azure AI Foundry RAG evaluation — ranking metrics and failure modes**. Continue from the evaluation workflow already taught; introduce NDCG/ranking metrics before testing them, then diagnose common RAG failures and remediation choices. The Foundry authentication/security checkpoint remains an open parallel checkpoint and should not be treated as mastered until its questions and hands-on gate are completed.
+**RAG multi-symptom diagnosis and hands-on evaluation.** Continue from the demonstrated metric/failure/remediation chain, then connect it to an Azure AI Foundry evaluation workflow. The Foundry authentication/security checkpoint remains an open parallel checkpoint and should not be treated as mastered until its questions and hands-on gate are completed.
 
 ## Topic Gate
 
