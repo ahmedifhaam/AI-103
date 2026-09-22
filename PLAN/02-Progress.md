@@ -5,7 +5,7 @@
 - **Start:** 2026-09-14
 - **Exam:** 2026-10-05
 - **Core deadline:** 2026-09-30
-- **Current status:** 🟡 RAG evaluation/remediation concepts are strong and scenario performance is consistent. Hands-on work remains incomplete, and the Foundry authentication/security checkpoint remains open.
+- **Current status:** 🟡 RAG evaluation/remediation concepts are strong and scenario performance is consistent. Hands-on work has now started with a real Microsoft Azure RAG sample. The Foundry authentication/security checkpoint remains open.
 - **Completed checkpoints:** 7
 - **Target readiness:** ≥85%
 
@@ -20,7 +20,7 @@ Computer Vision           ░░░░░░░░░░ 0%
 Text Analysis             ██░░░░░░░ 10%
 Information Extraction    ██░░░░░░░ 10%
 
-Hands-on                  ░░░░░░░░░░ 0%
+Hands-on                  █░░░░░░░░░ 5%
 Exam Questions            ██████░░░░ 30%
 Retention                 ████░░░░░░ 20%
 ```
@@ -50,6 +50,24 @@ STUDY-SESSIONS/
     └── 01-RAG-Evaluation-Remediation.md
 ```
 
+## Hands-On Tree
+
+Detailed practical work is stored separately under [HANDS-ON/](../HANDS-ON/README.md).
+
+```text
+HANDS-ON/
+├── README.md
+└── RAG/
+    ├── README.md
+    ├── SOURCES.md
+    ├── data/
+    │   └── README.md
+    ├── evaluation/
+    │   └── README.md
+    └── experiments/
+        └── README.md
+```
+
 ## Session Index
 
 | Date | Session | Result | Hands-on | Gate | Details |
@@ -61,6 +79,7 @@ STUDY-SESSIONS/
 | 2026-09-17 | Foundry authentication + security | 6 questions pending | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/03-Foundry-Authentication-Security.md) |
 | 2026-09-17 | RAG evaluation | 12/12 recorded checks | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-17/04-RAG-Evaluation.md) |
 | 2026-09-18 | RAG evaluation + remediation | NDCG + 5/5 remediation checks | Not yet | 🟡 | [Session](../STUDY-SESSIONS/2026-09-18/01-RAG-Evaluation-Remediation.md) |
+| 2026-09-22 | RAG hands-on setup | Real Microsoft sample selected; lab structure created | 🟡 Started | 🟡 | [Hands-on lab](../HANDS-ON/RAG/README.md) |
 
 ## Current Learning Tree
 
@@ -107,6 +126,13 @@ AI-103
             ├── Chunking remediation ✓
             ├── Ranking/reranking ✓
             └── Precision / Top-K / filtering ✓
+        └── Hands-on lab 🟡
+            ├── Real sample selected ✓
+            ├── Lab structure ✓
+            ├── Source corpus identified ✓
+            ├── Ingestion/indexing ⬜
+            ├── Retrieval experiments ⬜
+            └── Evaluation experiments ⬜
 ```
 
 ## Weak Area Queue
@@ -122,7 +148,9 @@ AI-103
 
 ## Next Learning Target
 
-**RAG multi-symptom diagnosis and hands-on evaluation.** Continue from the demonstrated metric/failure/remediation chain, then connect it to an Azure AI Foundry evaluation workflow. The Foundry authentication/security checkpoint remains an open parallel checkpoint and should not be treated as mastered until its questions and hands-on gate are completed.
+**RAG hands-on evaluation using a real Microsoft sample.** Start with the source corpus, inspect ingestion/chunking, then run baseline retrieval before changing search strategies. Connect each experiment back to the evaluation concepts already learned.
+
+The Foundry authentication/security checkpoint remains an open parallel checkpoint and should not be treated as mastered until its questions and hands-on gate are completed.
 
 ## Topic Gate
 
