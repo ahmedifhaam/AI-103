@@ -29,7 +29,7 @@ The sample is a RAG application using Azure AI Search for retrieval and Azure Op
 - [x] Select real Microsoft sample
 - [x] Create hands-on tracking area
 - [x] Identify source documents
-- [ ] Bring selected source documents into the lab workspace
+- [x] Bring selected source documents into the lab workspace
 - [ ] Build/prepare the RAG environment
 - [ ] Run baseline retrieval
 - [ ] Capture retrieved documents
@@ -39,6 +39,20 @@ The sample is a RAG application using Azure AI Search for retrieval and Azure Op
 - [ ] Diagnose a deliberate retrieval failure
 - [ ] Evaluate groundedness/relevance/completeness
 - [ ] Record final exam takeaways
+
+## Current experiment: source inspection and chunking
+
+The first imported corpus document is `data/source/Zava_Company_Overview.md`.
+
+For the initial chunking experiment, preserve semantic units: headings should remain associated with the content they describe, and structured content such as the vacation table should stay with its surrounding context. Avoid splitting purely by arbitrary character boundaries.
+
+### Upstream provenance
+
+- Repository: `Azure-Samples/azure-search-openai-demo`
+- Upstream branch: `main`
+- Upstream commit captured for this lab: `3f4a21f03ae3d565aca37cc300e3d38b0c7b582a`
+- Source file: `data/Zava_Company_Overview.md`
+- Upstream file blob SHA: `cba112d1edfba4cd717e727c8a9ebed77156d41f`
 
 ## Lab rule
 
